@@ -12,9 +12,6 @@ on:
       - mock-registry/**
       - workspaces/**
   push:
-    branches:
-      - latest
-      - release/v*
     paths-ignore:
       - docs/**
       - smoke-tests/**
