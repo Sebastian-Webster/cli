@@ -28,7 +28,6 @@ on:
 jobs:
   lint:
     name: Lint
-    if: github.repository_owner == 'npm'
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -36,17 +35,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Git User
-        run: |
-          git config --global user.email "npm-cli+bot@github.com"
-          git config --global user.name "npm CLI robot"
       - name: Setup Node
         uses: actions/setup-node@v4
         id: node
         with:
           node-version: 22.x
-          check-latest: contains('22.x', '.x')
-          cache: npm
       - name: Check Git Status
         run: node scripts/git-dirty.js
       - name: Reset Deps
@@ -58,7 +51,6 @@ jobs:
 
   test:
     name: Test - ${{ matrix.platform.name }} - ${{ matrix.node-version }}
-    if: github.repository_owner == 'npm'
     strategy:
       fail-fast: false
       matrix:
@@ -99,17 +91,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Git User
-        run: |
-          git config --global user.email "npm-cli+bot@github.com"
-          git config --global user.name "npm CLI robot"
       - name: Setup Node
         uses: actions/setup-node@v4
         id: node
         with:
           node-version: ${{ matrix.node-version }}
-          check-latest: contains(matrix.node-version, '.x')
-          cache: npm
       - name: Check Git Status
         run: node scripts/git-dirty.js
       - name: Reset Deps
@@ -123,7 +109,6 @@ jobs:
 
   licenses:
     name: Check Licenses
-    if: github.repository_owner == 'npm'
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -131,17 +116,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Git User
-        run: |
-          git config --global user.email "npm-cli+bot@github.com"
-          git config --global user.name "npm CLI robot"
       - name: Setup Node
         uses: actions/setup-node@v4
         id: node
         with:
           node-version: 22.x
-          check-latest: contains('22.x', '.x')
-          cache: npm
       - name: Check Git Status
         run: node scripts/git-dirty.js
       - name: Reset Deps
@@ -151,7 +130,6 @@ jobs:
 
   smoke-tests:
     name: Smoke Tests
-    if: github.repository_owner == 'npm'
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -159,17 +137,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Git User
-        run: |
-          git config --global user.email "npm-cli+bot@github.com"
-          git config --global user.name "npm CLI robot"
       - name: Setup Node
         uses: actions/setup-node@v4
         id: node
         with:
           node-version: 22.x
-          check-latest: contains('22.x', '.x')
-          cache: npm
       - name: Check Git Status
         run: node scripts/git-dirty.js
       - name: Reset Deps
